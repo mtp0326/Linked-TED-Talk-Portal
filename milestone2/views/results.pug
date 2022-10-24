@@ -1,0 +1,48 @@
+html
+	head
+		title NETS 2120 Homework 2 Milestone 2 - TED Navigator
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js')
+		link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css')
+		link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js')
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+	body(class="container")
+		h1 NETS 2120 Homework 2 Milestone 2 - TED Navigator
+		h3 Top #{Low} to #{High} TED talks matching "#{search}"
+
+		a(class="btn btn-default", href="/talks1?keyword="+search, role="button") 1
+		a(class="btn btn-default", href="/talks2?keyword="+search, role="button") 2
+		a(class="btn btn-default", href="/talks3?keyword="+search, role="button") 3
+		a(class="btn btn-default", href="/talks4?keyword="+search, role="button") 4
+		a(class="btn btn-default", href="/talks5?keyword="+search, role="button") 5
+		
+		br
+		
+		each r in results
+			table(class="table table-hover", style = 'width:100%', border = '1')
+				tr
+					th Speaker: #{r.speaker_1}
+					th TED talk: 
+						a(href=r.url) "#{r.title}"
+					td #{r.views} views
+				tr
+					td 
+						iframe(src = r.url)
+					td #{r.description}
+				tr
+					th Duration: #{r.duration} minutes
+					td Social node ##{r.social_id}
+				tr
+					th Topics:
+					td
+						each topic in r.topics
+							a(href = "/talks?keyword="+topic) #{topic}
+							br
+				tr
+					th Related Talks:
+					td
+						each value, key in r.related_talks
+							a(href = "talk?id="+key) #{value}
+							br
+				br
+					
